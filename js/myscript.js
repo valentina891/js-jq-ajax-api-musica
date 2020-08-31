@@ -11,13 +11,14 @@ $(document).ready(function(){
             'success': function(risposta){
                 console.log(risposta.response);
 
-                var source = document.getElementById("entry-template").innerHTML;
+                // var source = document.getElementById("entry-template").innerHTML;
+                var source = $("#entry-template").html();
                 var template = Handlebars.compile(source);
 
                 for (var i = 0; i < risposta.response.length; i++) {
                     var cd = risposta.response[i];
-
                     var html = template(cd);
+
                     $('.cds-container').append(html);
                 }
             },
@@ -27,18 +28,59 @@ $(document).ready(function(){
         }
     );
 
+    //****Versione con la funzione****
+
+    // $.ajax(
+    //     {
+    //         'url': 'https://flynn.boolean.careers/exercises/api/array/music',
+    //         'method': 'GET',
+    //         'success': function(risposta){
+    //             insertCd(risposta);
+    //         'error': function(){
+    //             alert('errore!');
+    //         }
+    //     }
+    // );
+    //functioninsertCd(data){
+    //             console.log(risposta.response);
+    //
+    //             // var source = document.getElementById("entry-template").innerHTML;
+    //             var source = $("#entry-template").html();
+    //             var template = Handlebars.compile(source);
+    //
+    //             for (var i = 0; i < risposta.response.length; i++) {
+    //                 var cd = risposta.response[i];
+    //                 var html = template(cd);
+    //
+    //                 $('.cds-container').append(html);
+    //             }
+    //         },
+    //}
+
+
 // Bonus: Creare una select con i seguenti generi: pop, rock, metal e jazz.
 // In base a cosa scegliamo nella select vedremo i corrispondenti cd.
     $('#genere option').click(function(){
 
-        var scelta = $(this.genre).val();
-
-        if ('#genere' == scelta) {
-            $('.cd').genre.show(scelta);
-        } else {
-            $('.cd').genre.hide();
-        }
+        var scelta = $(this).val();
         console.log(scelta)
+
+        if (scelta == 'All') {
+            $('.cd').show();
+
+        } else {
+            $('.cd').hide();
+            $('.cd.' + scelta).show();
+        }
+
+        // var scelta = $(this.genre).val();
+        //
+        // if ('#genere' == scelta) {
+        //     $('.cd').genre.show(scelta);
+        // } else {
+        //     $('.cd').genre.hide();
+        // }
+        // console.log(scelta)
 
     //     var valore = $(this).val();
     //     var scelta = $('.cd'.genre).click();
@@ -52,14 +94,4 @@ $(document).ready(function(){
     //     //else {
     //     // }
     });
-
-
-
-
-
-
-
-
-
-
 });
